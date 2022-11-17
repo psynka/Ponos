@@ -1,6 +1,9 @@
-FROM python:3.10
-WORKDIR /app
-COPY . .
-RUN pip install -r app/requirements.txt
+FROM debian:stable-slim
 
-CMD ["python", "app/database.py"]
+RUN apt-get update && \
+	DEBIAN_FRONTEND=noninteractive apt-get -yq --no-install-recommends install sqlite3=3.* && \
+	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+	mkdir -p /root/db
+
+WORKDIR /root/db
+ENTRYPOINT [ "sqlite3" ]

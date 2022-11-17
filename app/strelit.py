@@ -6,7 +6,7 @@ import sqlite3
 #import sklearn
 
 #model = joblib.load("my_random_forest.joblib")
-con = sqlite3.connect('database.db')
+con = sqlite3.connect('..\\db\\database.db')
 cur = con.cursor()
 st.title("PONOS")
 st.write("paelpitsi")

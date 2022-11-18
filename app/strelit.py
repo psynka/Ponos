@@ -2,23 +2,26 @@ import streamlit as st
 import pandas as pd
 from plotly import graph_objs as go
 import sqlite3
-#import joblib
-#import sklearn
+import joblib
+import sklearn
+from sklearn.ensemble import RandomForestClassifier
 
-#model = joblib.load("my_random_forest.joblib")
+model = joblib.load("..\\model\\my_random_forest.joblib")
 con = sqlite3.connect('..\\db\\database.db')
-cur = con.cursor()
 st.title("PONOS")
 st.write("paelpitsi")
 
-all_results = cur.fetchall()
-df = pd.read_sql("SELECT * FROM Bitcoin_Data", con)
 df_2 = pd.read_sql("SELECT * FROM Bitcoin_Data", con)
+df = pd.read_sql("SELECT * FROM Bitcoin_Data", con)
 df['timestamp'] = pd.to_datetime(df['timestamp'], unit='s')
 df = df.rename(columns={"timestamp":"Date"})
+df["next_day"] = df["close"].shift(-1)
+df["target_change_over"] = (df["next_day"] > df["close"]).astype(int)
+
 st.dataframe(df)
-#predictors =
-#model.fit(train[predictors], train["target_change_over"])
+train = df.iloc[:-1700]
+predictors = ["close", "volume", "open", "high", "low"]
+model.fit(train[predictors], train["target_change_over"])
 
 def plot_raw_data():
     fig = go.Figure()

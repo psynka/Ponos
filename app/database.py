@@ -56,11 +56,36 @@ parameters_news = {
     'id_dataset': '5defce899516296bfe37c366',
 }
 
-df_bit = pullObservationsToDF(parameters_prices)
-df_news = pullObservationsToDF(parameters_news)
+#ETH
 
-create_news(df_news)
-create_bitcoin(df_bit)
+#df = pd.read_csv('ETH-USD.csv', sep=',', quotechar='|')
+
+#print(df.head())
+
+#df.to_sql("ETH-USD", con = engine)
+
+#Bitcoin
+
+#df2 = pd.read_csv('BTC-USD.csv', sep=',', quotechar='|')
+
+#print(df2.head())
+
+#df2.to_sql("BTC-USD", con = engine)
+
+
+df2 = pd.read_csv('VectorisedNews.csv', sep=',', quotechar='|')
+
+df2 = df2.loc[:,:'precovid']
+
+print(df2.head())
+
+df2.to_sql("VectorisedNews", con = engine)
+
+#df_bit = pullObservationsToDF(parameters_prices)
+#df_news = pullObservationsToDF(parameters_news)
+
+#create_news(df_news)
+#create_bitcoin(df_bit)
 
 
 

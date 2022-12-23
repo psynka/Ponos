@@ -54,3 +54,6 @@ class News(Base):
     url = Column(Text())
     timestamp = Column(Float(), primary_key=True)
 
+
+
+

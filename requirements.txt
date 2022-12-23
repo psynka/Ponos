@@ -1,0 +1,3 @@
+OpenBlender~=2.11
+pandas~=1.5.1
+SQLAlchemy~=1.4.44
